@@ -1,13 +1,20 @@
 from player_reader import PlayerReader
+from sortby import SortBy
 
 
 def sort_by_points(player):
     return player.points
 
+def sort_by_goals(player):
+    return player.goals
+
+def sort_by_assists(player):
+    return player.assists
+
 
 class StatisticsService:
-    def __init__(self):
-        reader = PlayerReader()
+    def __init__(self, preader):
+        reader = preader
 
         self._players = reader.get_players()
 
@@ -26,12 +33,26 @@ class StatisticsService:
 
         return list(players_of_team)
 
-    def top(self, how_many):
-        sorted_players = sorted(
+    def top(self, how_many, sort=SortBy.POINTS):
+
+        if sort == SortBy.POINTS:
+          sorted_players = sorted(
             self._players,
             reverse=True,
             key=sort_by_points
-        )
+            )
+        elif sort == SortBy.GOALS:
+            sorted_players = sorted(
+                self._players,
+                reverse=True,
+                key=sort_by_goals
+            )
+        elif sort == SortBy.ASSISTS:
+            sorted_players = sorted(
+                self._players,
+                reverse=True,
+                key=sort_by_assists
+            )
 
         result = []
         i = 0
