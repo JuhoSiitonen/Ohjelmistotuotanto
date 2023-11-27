@@ -1,6 +1,8 @@
 class And:
     def __init__(self, *matchers):
         self._matchers = matchers
+        #print(self._matchers)
+        #print(type(self._matchers))
 
     def test(self, player):
         for matcher in self._matchers:
@@ -55,11 +57,11 @@ class HasFewerThan:
 
     def test(self, player):
         player_value = getattr(player, self._attr)
-        return player_value <= self._value
+        return player_value < self._value
     
 class All:
     def __init__(self):
         pass
 
     def test(self, player):
-        return player
+        return True
