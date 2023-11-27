@@ -23,4 +23,4 @@ class QueryBuilder:
     
     def oneOf(self, *objs):
         self.matcher = objs
-        return Or(objs)
+        return Or(*objs)
